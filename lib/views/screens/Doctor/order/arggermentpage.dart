@@ -405,7 +405,7 @@ class _ArggermentPageState extends State<ArggermentPage> {
                         
                         orderController.orderData.value.addAll({
                           'Payment_Type': 'Pending',
-                          'Payment_Transfer_Name': 'null',
+                          'Payment_Transfer_Name': 'Bank',
                           'Agreement': 'Ture',
                           'Signature': data1,
                           'ImageName': "Udsevice1" 

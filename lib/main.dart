@@ -8,11 +8,15 @@ import 'package:rentapp22/views/screens/Doctor/homepage/homepage.dart';
 import 'package:rentapp22/views/screens/Employee/homepage/homepage.dart';
 import 'package:rentapp22/views/screens/LoginScreens/signin/sign_in_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'components/notification_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'views/screens/Admin/homepage/homepage.dart';
 
 late SharedPreferences sharedPreferences;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  await NotificationHelper.notificationHelper.NotificationInitialize();
   sharedPreferences = await SharedPreferences.getInstance();
   runApp(
     MyApp(),
@@ -52,12 +56,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: themeData(),
       initialRoute: (k)
-          ?(k2)? AdminHomePage.routeName :(k1)
-              ? DoctorHomePage.routeName
-              : EmployeeHomePage.routeName
+          ? (k2)
+              ? AdminHomePage.routeName
+              : (k1)
+                  ? DoctorHomePage.routeName
+                  : EmployeeHomePage.routeName
           : SigniInScreen.routeName,
       routes: routes,
     );
   }
 }
-

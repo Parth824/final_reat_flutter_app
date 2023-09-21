@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentapp22/views/screens/Admin/employee/controllers/employee_controller.dart';
+import 'package:rentapp22/views/screens/Admin/employee/date_emp.dart';
 import 'package:rentapp22/views/screens/Admin/employee/info_employee.dart';
 
 import '../../../../size_config.dart';
@@ -97,9 +98,11 @@ class _EmployeePageState extends State<EmployeePage> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.blue,
+                                    Ink(
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                     Container(
                                       width: SizeConfig.screenWidth * .73,
@@ -118,15 +121,17 @@ class _EmployeePageState extends State<EmployeePage> {
                                     GestureDetector(
                                         onTap: () {
                                           // setState(() {
-                                          //   Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) =>
-                                          //               InforPage(),
-                                          //           settings: RouteSettings(
-                                          //               arguments:
-                                          //                   Data[index])));
-                                          // });
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => DateList(),
+                                              settings: RouteSettings(
+                                                arguments: employeeController
+                                                    .emplist[index]['E_Id'],
+                                              ),
+                                            ),
+                                          );
+
                                           // Get.to(InforPage(),);
                                         },
                                         child: Icon(

@@ -5,7 +5,7 @@ import 'package:rentapp22/views/screens/Admin/bankaccount/bankaccount.dart';
 import 'package:rentapp22/views/screens/Admin/doctor/doctor.dart';
 import 'package:rentapp22/views/screens/Admin/employee/employee.dart';
 import 'package:rentapp22/views/screens/Admin/expense/expense.dart';
-import 'package:rentapp22/views/screens/Admin/inventory/inventory.dart';
+import 'package:rentapp22/views/screens/Admin/invoice/inventory.dart';
 import 'package:rentapp22/views/screens/Admin/orderRequest/orderRequest.dart';
 import 'package:rentapp22/views/screens/Admin/totalcomplains/totalcomplains.dart';
 import 'package:rentapp22/views/screens/Admin/totalsales/totalsales.dart';

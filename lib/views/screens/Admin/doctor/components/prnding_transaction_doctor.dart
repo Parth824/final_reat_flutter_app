@@ -149,6 +149,76 @@ class _PendingTransactionDoctorState extends State<PendingTransactionDoctor> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                     ),
+                                    Expanded(
+                                      
+                                      child: InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text(
+                                                    "Are You Sure This Payment is Recived"),
+                                                actions: [
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text("Cancel"),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () async {
+                                                      var data =
+                                                          await doctorController
+                                                              .pymentReciveing(
+                                                                  k: {
+                                                            'O_Id':
+                                                                "${doctorController.doctorPanding[index]['O_Id']}",
+                                                          });
+                                                      if (data['result'] ==
+                                                          "Updatetion successfuly") {
+                                                        Navigator.pop(context);
+                                                        Navigator.pop(context);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                SnackBar(
+                                                          content: Text(
+                                                              "SuccessFluuy.."),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                          behavior:
+                                                              SnackBarBehavior
+                                                                  .floating,
+                                                        ));
+                                                        await doctorController
+                                                            .getData();
+                                                      } else {
+                                                        Navigator.pop(context);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                SnackBar(
+                                                          content:
+                                                              Text("Falid.."),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          behavior:
+                                                              SnackBarBehavior
+                                                                  .floating,
+                                                        ));
+                                                      }
+                                                    },
+                                                    child: Text("Ok"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Icon(Icons.edit),
+                                      ),
+                                    )
                                   ],
                                 ),
                               );

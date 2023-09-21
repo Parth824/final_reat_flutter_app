@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:get/get.dart';
 import 'package:rentapp22/main.dart';
+import 'package:rentapp22/views/screens/Admin/expense/add_expense_alert.dart';
 
 import '../../../../globals.dart';
+import '../../../../size_config.dart';
 import 'balance_controller.dart';
 import 'ledger_controller.dart';
 
@@ -21,23 +24,32 @@ class LedgerPage extends StatefulWidget {
 
 class _LedgerPageState extends State<LedgerPage> {
   final pdf = pw.Document();
+  DateTime _selectedDate1 = DateTime(
+      DateTime.now().year, DateTime.now().month - 1, DateTime.now().day - 1);
+  DateTime _selectedDate2 = DateTime.now();
   LedgerContorller ledgerContorller = Get.put(LedgerContorller());
+  TextEditingController _textEditingController1 = TextEditingController();
+  TextEditingController _textEditingController2 = TextEditingController();
+  String? date1;
+  String? date2;
   @override
   void initState() {
     super.initState();
-    makepdf();
+    makepdf1();
   }
 
-  makepdf() {
+  makepdf1() {
     pdf.addPage(
       pw.Page(
         build: (pw.Context context1) => pw.Container(
-          padding: pw.EdgeInsets.all(
-            MediaQuery.of(context).size.width * 0.025,
-          ),
+          alignment: pw.Alignment.center,
+
+          // padding: pw.EdgeInsets.all(
+          //   MediaQuery.of(context).size.width * 0.025,
+          // ),
           height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: PdfColors.white,
+          // width: MediaQuery.of(context).size.width*1.9,
+          // color: PdfColors.amber,
           child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -45,7 +57,7 @@ class _LedgerPageState extends State<LedgerPage> {
                 pw.Container(
                   alignment: pw.Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.025,
-                  width: MediaQuery.of(context).size.width,
+                  // width: MediaQuery.of(context).size.width*1.9,
                   child: pw.Text(
                     "Ledger",
                     style: pw.TextStyle(
@@ -54,10 +66,13 @@ class _LedgerPageState extends State<LedgerPage> {
                         fontWeight: pw.FontWeight.bold),
                   ),
                 ),
+                pw.SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.002,
+                    width: MediaQuery.of(context).size.width),
                 pw.Container(
                   alignment: pw.Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.025,
-                  width: MediaQuery.of(context).size.width,
+                  // width: MediaQuery.of(context).size.width*1.9,
                   child: pw.Text(
                     "UD Service",
                     style: pw.TextStyle(
@@ -66,13 +81,17 @@ class _LedgerPageState extends State<LedgerPage> {
                         fontWeight: pw.FontWeight.bold),
                   ),
                 ),
+                // pw.SizedBox(
+                //     height: MediaQuery.of(context).size.height * 0.003,
+                //     width: MediaQuery.of(context).size.width),
+                pw.Divider(),
                 pw.Container(
                   padding: pw.EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.01,
                       right: MediaQuery.of(context).size.width * 0.01),
                   alignment: pw.Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.135,
-                  width: MediaQuery.of(context).size.width,
+                  // width: MediaQuery.of(context).size.width*1.9,
                   child: pw.Column(
                     children: [
                       pw.Text(
@@ -82,6 +101,9 @@ class _LedgerPageState extends State<LedgerPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.028,
                             fontWeight: pw.FontWeight.normal),
                       ),
+                      pw.SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          width: MediaQuery.of(context).size.width),
                       pw.Text(
                         " PALANPOR JAKATNAKA GAM, SURAT, GUJARAT:395009.",
                         style: pw.TextStyle(
@@ -89,6 +111,9 @@ class _LedgerPageState extends State<LedgerPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.028,
                             fontWeight: pw.FontWeight.normal),
                       ),
+                      pw.SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          width: MediaQuery.of(context).size.width),
                       pw.Text(
                         "Contact No. : 7990556886 , Email: mohit.udservices@gmail.com",
                         style: pw.TextStyle(
@@ -106,6 +131,9 @@ class _LedgerPageState extends State<LedgerPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.042,
                             fontWeight: pw.FontWeight.bold),
                       ),
+                      pw.SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          width: MediaQuery.of(context).size.width),
                       pw.Text(
                         "SHOPNO. 212 RAJ GALAXY COMPLEX, NR. STUTI HIGH LAND ",
                         style: pw.TextStyle(
@@ -113,6 +141,9 @@ class _LedgerPageState extends State<LedgerPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.028,
                             fontWeight: pw.FontWeight.normal),
                       ),
+                      pw.SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          width: MediaQuery.of(context).size.width),
                       pw.Text(
                         " PALANPOR JAKATNAKA GAM, SURAT, GUJARAT:395009.",
                         style: pw.TextStyle(
@@ -120,6 +151,9 @@ class _LedgerPageState extends State<LedgerPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.028,
                             fontWeight: pw.FontWeight.normal),
                       ),
+                      pw.SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.002,
+                          width: MediaQuery.of(context).size.width),
                       pw.Text(
                         "From 01-01-2022 to 01-01-2023",
                         style: pw.TextStyle(
@@ -151,7 +185,7 @@ class _LedgerPageState extends State<LedgerPage> {
                         ),
                       ),
                       pw.Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: pw.Container(
                           child: pw.Text(
                             "Details",
@@ -164,7 +198,7 @@ class _LedgerPageState extends State<LedgerPage> {
                         ),
                       ),
                       pw.Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: pw.Text(
                           "Voucher",
                           style: pw.TextStyle(
@@ -203,7 +237,7 @@ class _LedgerPageState extends State<LedgerPage> {
                   (e) => pw.Container(
                     alignment: pw.Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.04,
-                    width: MediaQuery.of(context).size.width,
+                    // width: MediaQuery.of(context).size.width,
                     child: pw.Row(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
@@ -219,7 +253,7 @@ class _LedgerPageState extends State<LedgerPage> {
                           ),
                         ),
                         pw.Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: pw.Text(
                             e["Payment_Transfer_Name"],
                             style: pw.TextStyle(
@@ -229,39 +263,49 @@ class _LedgerPageState extends State<LedgerPage> {
                           ),
                         ),
                         pw.Expanded(
-                          flex: 3,
+                          flex: 4,
                           child: pw.Text(
-                            "Invoice-${e["O_Id"]}",
+                            "Invoice - ${e["O_Id"]}",
                             style: pw.TextStyle(
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.037,
                                 fontWeight: pw.FontWeight.normal),
                           ),
                         ),
+
                         pw.Expanded(
-                            flex: 2,
-                            child: (e['Payment_Type'] == 'Pending')
-                                ? pw.Text(
-                                    e["Amount"],
-                                    style: pw.TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.037,
-                                        fontWeight: pw.FontWeight.normal),
-                                  )
-                                : pw.Text(
-                                    " ",
-                                    style: pw.TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.037,
-                                        fontWeight: pw.FontWeight.normal),
-                                  )),
+                          flex: 2,
+                          child: (e['Payment_Type'] == 'Pending')
+                              ? pw.Text(
+                                  e["Amount"],
+                                  style: pw.TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.037,
+                                      fontWeight: pw.FontWeight.normal),
+                                )
+                              : pw.Text(
+                                  " ",
+                                  style: pw.TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.037,
+                                      fontWeight: pw.FontWeight.normal),
+                                ),
+                        ),
+                        // pw.Spacer(),
+                        // pw.Expanded(flex: 2, child: pw.Text(e["credit"])),
+
                         pw.Expanded(
                           flex: 2,
                           child: (e['Payment_Type'] == 'Receiving')
                               ? pw.Text(
                                   e["Amount"],
+                                  style: pw.TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.037,
+                                      fontWeight: pw.FontWeight.normal),
                                 )
                               : pw.Text(
                                   " ",
@@ -287,42 +331,67 @@ class _LedgerPageState extends State<LedgerPage> {
                           fontWeight: pw.FontWeight.bold,
                           fontSize: MediaQuery.of(context).size.width * 0.042),
                     ),
-                    pw.Text("${ledgerContorller.debit}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
-                    pw.Text("${ledgerContorller.credit}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
+                    pw.SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    // pw.Text("200000",
+                    //     style: pw.TextStyle(
+                    //         color: PdfColors.black,
+                    //         fontWeight: pw.FontWeight.bold,
+                    //         fontSize:
+                    //             MediaQuery.of(context).size.width * 0.037)),
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text("${ledgerContorller.debit}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
+                    ),
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text("${ledgerContorller.credit}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
+                    ),
                   ],
                 ),
                 pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.end,
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
                   children: [
-                    pw.Text(
-                        "${(ledgerContorller.credit.value + ledgerContorller.debit.value) - ledgerContorller.debit.value}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
+                    pw.SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.74,
+                    ),
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text(
+                          "${(ledgerContorller.credit.value + ledgerContorller.debit.value) - ledgerContorller.credit.value}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
+                    ),
                     pw.SizedBox(
                       width: MediaQuery.of(context).size.width * 0.04,
                     ),
-                    pw.Text(
-                        "${(ledgerContorller.credit.value + ledgerContorller.debit.value) - ledgerContorller.credit.value}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
-                    pw.SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.04,
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text(
+                          "${(ledgerContorller.credit.value + ledgerContorller.debit.value) - ledgerContorller.credit.value}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
                     ),
                   ],
                 ),
@@ -333,7 +402,7 @@ class _LedgerPageState extends State<LedgerPage> {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
                   children: [
                     pw.SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.22,
+                      width: MediaQuery.of(context).size.width * 0.2,
                     ),
                     pw.Text(
                       "Closing Balance :",
@@ -342,20 +411,31 @@ class _LedgerPageState extends State<LedgerPage> {
                           fontWeight: pw.FontWeight.bold,
                           fontSize: MediaQuery.of(context).size.width * 0.042),
                     ),
-                    pw.Text(
-                        "${ledgerContorller.credit.value + ledgerContorller.debit.value}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
-                    pw.Text(
-                        "${ledgerContorller.credit.value + ledgerContorller.debit.value}",
-                        style: pw.TextStyle(
-                            color: PdfColors.black,
-                            fontWeight: pw.FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.037)),
+                    pw.SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text(
+                          "${ledgerContorller.credit.value + ledgerContorller.debit.value}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
+                    ),
+                    pw.Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: pw.Text(
+                          "${ledgerContorller.credit.value + ledgerContorller.debit.value}",
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontWeight: pw.FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.037)),
+                    ),
                   ],
                 ),
               ]),
@@ -394,6 +474,171 @@ class _LedgerPageState extends State<LedgerPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              margin: EdgeInsets.all(getProportionateScreenHeight(12)),
+              height: SizeConfig.screenHeight * 0.08,
+              decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius:
+                      BorderRadius.circular(getProportionateScreenHeight(15))),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "FROM : ",
+                      style: TextStyle(
+                          fontSize: getProportionateScreenHeight(16),
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight * 0.05,
+                      width: SizeConfig.screenWidth * 0.26,
+                      child: Center(
+                        child: TextFormField(
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(13.5),
+                            color: Colors.black,
+                          ),
+                          controller: _textEditingController1,
+                          onSaved: (val) {
+                            date1 = val;
+                          },
+                          validator: (val) {
+                            if (val!.isEmpty) {}
+                            return null;
+                          },
+                          onTap: () async {
+                            DateTime? newSelectedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2040),
+                            );
+
+                            if (newSelectedDate != null) {
+                              _selectedDate1 = newSelectedDate;
+                              _textEditingController1
+                                ..text = DateFormat("yyyy-MM-dd")
+                                    .format(_selectedDate1!)
+                                ..selection = TextSelection.fromPosition(
+                                    TextPosition(
+                                        offset:
+                                            _textEditingController1.text.length,
+                                        affinity: TextAffinity.upstream));
+                              print(_selectedDate2);
+                              ledgerContorller.getApiData(k: {
+                                "Id": '${sharedPreferences.getString("Id")}',
+                                "Date1":
+                                    "${DateFormat('yyyy-MM-dd').format(_selectedDate1)}",
+                                "Date2":
+                                    "${DateFormat('yyyy-MM-dd').format(_selectedDate2)}"
+                              });
+                            }
+                          },
+                          focusNode: AlwaysDisabledFocusNode(),
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: getProportionateScreenHeight(8),
+                                horizontal: getProportionateScreenHeight(8)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: getProportionateScreenHeight(10),
+                    ),
+                    Text(
+                      "TO : ",
+                      style: TextStyle(
+                          fontSize: getProportionateScreenHeight(16),
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight * 0.05,
+                      width: SizeConfig.screenWidth * 0.26,
+                      child: Center(
+                        child: TextFormField(
+                          style: TextStyle(
+                            fontSize: getProportionateScreenHeight(13.5),
+                            color: Colors.black,
+                          ),
+                          controller: _textEditingController2,
+                          onSaved: (val) {
+                            date2 = val;
+                          },
+                          validator: (val) {
+                            if (val!.isEmpty) {}
+                            return null;
+                          },
+                          onTap: () async {
+                            DateTime? newSelectedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2040),
+                            );
+
+                            if (newSelectedDate != null) {
+                              _selectedDate2 = newSelectedDate;
+                              _textEditingController2
+                                ..text = DateFormat("yyyy-MM-dd")
+                                    .format(_selectedDate2!)
+                                ..selection = TextSelection.fromPosition(
+                                    TextPosition(
+                                        offset:
+                                            _textEditingController2.text.length,
+                                        affinity: TextAffinity.upstream));
+
+                              print(_selectedDate2);
+                              ledgerContorller.getApiData(k: {
+                                "Id": '${sharedPreferences.getString("Id")}',
+                                "Date1":
+                                    "${DateFormat('yyyy-MM-dd').format(_selectedDate1)}",
+                                "Date2":
+                                    "${DateFormat('yyyy-MM-dd').format(_selectedDate2)}"
+                              });
+                            }
+                          },
+                          focusNode: AlwaysDisabledFocusNode(),
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: getProportionateScreenHeight(8),
+                                horizontal: getProportionateScreenHeight(8)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.screenHeight * 0.01),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Container(
               height: height * 0.08,
               width: width,
@@ -532,8 +777,11 @@ class _LedgerPageState extends State<LedgerPage> {
               ),
             ),
             FutureBuilder(
-              future: ledgerContorller.getApiData(
-                  k: {"Id": '${sharedPreferences.getString("Id")}'}),
+              future: ledgerContorller.getApiData(k: {
+                "Id": '${sharedPreferences.getString("Id")}',
+                "Date1": "${DateFormat('yyyy-MM-dd').format(_selectedDate1)}",
+                "Date2": "${DateFormat('yyyy-MM-dd').format(_selectedDate2)}"
+              }),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(

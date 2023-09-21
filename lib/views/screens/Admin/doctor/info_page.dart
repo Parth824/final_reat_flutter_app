@@ -83,7 +83,7 @@ class _Infor_PageState extends State<Infor_Page>
         children: [
           InformationDoctor(),
           PendingTransactionDoctor(),
-          PartReport()
+          SalesReport()
         ],
       ),
     );

@@ -22,7 +22,7 @@ import 'package:rentapp22/views/screens/LoginScreens/select_category/select_cate
 import 'package:rentapp22/views/screens/LoginScreens/sign_up/sign_up_screen.dart';
 import 'package:rentapp22/views/screens/LoginScreens/signin/sign_in_screen.dart';
 
-import 'views/screens/Admin/inventory/inventory.dart';
+import 'views/screens/Admin/invoice/inventory.dart';
 import 'views/screens/Admin/orderRequest/listemployye.dart';
 import 'views/screens/Admin/totalsales/partyReport.dart';
 import 'views/screens/Admin/totalsales/totalsales.dart';

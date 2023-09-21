@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rentapp22/components/notification_helper.dart';
 import 'package:rentapp22/views/screens/Doctor/complain/complain.dart';
 import 'package:rentapp22/views/screens/Doctor/ledger/ledger.dart';
 import 'package:rentapp22/views/screens/Doctor/order/order_page.dart';
@@ -38,6 +39,29 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
             ),
           ),
           actions: [
+            // InkWell(
+            //   onTap: () async {
+            //     await NotificationHelper.notificationHelper.showNotification(
+            //         id: 1,
+            //         description: "12",
+                  
+            //         title: "Parth");
+            //   },
+            //   child: Icon(Icons.abc),
+            // ),
+            // SizedBox(
+            //   width: SizeConfig.screenWidth * 0.04,
+            // ),
+            // InkWell(
+            //   onTap: () async {
+            //     await NotificationHelper.notificationHelper
+            //         .deleteNotifiacation();
+            //   },
+            //   child: Icon(Icons.abc),
+            // ),
+            // SizedBox(
+            //   width: SizeConfig.screenWidth * 0.04,
+            // ),
             GestureDetector(
                 onTap: () async {
                   await sharedPreferences.setBool("isLogin", false);
@@ -190,5 +214,3 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
     );
   }
 }
-
-                      
